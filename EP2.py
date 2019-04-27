@@ -1,35 +1,27 @@
 # EP2  Gabriel Yudi Hirata  9349666
 class Grafo:
     def __init__(self):
-        self.vertice = {}
-        self.arco = {}
-        self.custo = []
+        self.grafo = {}
         
     def AcrescentaVertice(self,v):
-        if v in self.vertice:
-            print("%s já existe." %v)
-        else:
-            self.vertice[v] = {}
+        assert type(v) is str, "Vértice deve ser do tipo string, mas recebi %s." %type(v)
+        assert v not in self.grafo, "O vértice %s já existe." %v
+        self.grafo[v] = {}
 
     def RemoveVertice(self,v):
-        if v not in self.vertice:
-            print("%s não é um vértice existente." %v)
-        elif self.arco[v] == {}:
-            self.vertice.pop(v)
-        else:
-            print("O vértice %s contém arco(s) e não pode ser removido." %v)
+        assert v in self.grafo, "O vértice %s não existe." %v
+        assert self.grafo[v] != {}, "O vértice %s tem um arco associado." %v
+        self.grafo.pop(v)
             
-    def AcrescentaArco(self,v1,v2,w):        
-        if v1 or v2 not in self.vertice:
-            print("%s ou %s não é vértice." %(v1,v2))
-        else:
-            self.vertice[v1].update({v2:w})
+    def AcrescentaArco(self,v1,v2,w):
+        assert v1 in self.grafo, "O vértice %s não existe." %v1
+        assert v2 in self.grafo, "O vértice %s não existe." %v2      
+        assert type(v1) is str and type(v2) is str, "Vértices devem ser strings, recebi %s e %s" %(type(v1), type(v2)) 
+        self.grafo[v1][v2] = w
 
     def RemoveArco(self,v1,v2):
-        if v2 not in self.vertice[v1]:
-            print("Arco entre %s e %s não existe." %(v1,v2))
-        else:
-            self.vertice[v1].pop(v2)
+        assert v2 in self.grafo[v1], "Arco entre %s e %s não existe." %(v1,v2)
+        self.grafo[v1].pop(v2)
         
     # def ImprimeGrafo():    
 
